@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>김훈 티루실 게임</title>
+  <style>
+    body {
+      margin: 0;
+      background: #111;
+      color: white;
+      font-family: sans-serif;
+      text-align: center;
+    }
+    .box-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 50px;
+    }
+    .box {
+      width: 100px;
+      height: 100px;
+      background-color: #444;
+      border: 2px solid white;
+      margin: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .opened {
+      background-color: gold;
+      color: black;
+      transform: rotateY(360deg) scale(1.2);
+    }
+  </style>
+</head>
+<body>
+  <h1>🎁 김훈 티루실 랜덤 박스</h1>
+  <div class="box-container" id="boxContainer"></div>
+  <script>
+    const messages = [
+      "귀꼬추 뎝", "귀꼬추 뎝", "귀꼬추 뎝", "귀꼬추 뎝",
+      "티루실 훈뎝겾 서 ㅋㅋ", "티루실 훈뎝겾 서 ㅋㅋ", "티루실 훈뎝겾 서 ㅋㅋ",
+      "티루실 훈뎝겾 서 ㅋㅋ", "티루실 훈뎝겾 서 ㅋㅋ", "티루실 훈뎝겾 서 ㅋㅋ"
+    ];
+
+    // 셔플 함수
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    const shuffled = shuffle([...messages]);
+    const container = document.getElementById("boxContainer");
+
+    shuffled.forEach((msg, index) => {
+      const box = document.createElement("div");
+      box.className = "box";
+      box.textContent = "?";
+      box.addEventListener("click", () => {
+        if (!box.classList.contains("opened")) {
+          box.classList.add("opened");
+          box.textContent = msg;
+        }
+      });
+      container.appendChild(box);
+    });
+  </script>
+</body>
+</html>
